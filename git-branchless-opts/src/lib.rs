@@ -403,6 +403,10 @@ pub struct SubmitArgs {
     #[clap(action, short = 'd', long = "draft")]
     pub draft: bool,
 
+    /// Don't run Git hooks when pushing
+    #[clap(action, long = "no-verify")]
+    pub no_verify: bool,
+
     /// If the forge supports it, an optional message to include with the create
     /// or update operation.
     #[clap(short = 'm', long = "message")]

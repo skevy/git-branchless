@@ -325,6 +325,7 @@ impl Forge for PhabricatorForge<'_> {
         let SubmitOptions {
             create: _,
             draft,
+            no_verify: _,
             execution_strategy,
             num_jobs,
             message: _,
@@ -573,6 +574,7 @@ Differential Revision: https://phabricator.example.com/D000$(git rev-list --coun
         let SubmitOptions {
             create: _,
             draft: _,
+            no_verify: _,
             execution_strategy,
             num_jobs,
             message,

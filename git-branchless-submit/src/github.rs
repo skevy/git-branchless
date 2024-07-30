@@ -373,6 +373,7 @@ impl Forge for GithubForge<'_> {
         let SubmitOptions {
             create: _,
             draft: _,
+            no_verify: _,
             execution_strategy: _,
             num_jobs: _,
             message: _,
@@ -950,6 +951,7 @@ mod client {
                 create: _,
                 draft,
                 execution_strategy: _,
+                no_verify: _,
                 num_jobs: _,
                 message: _,
             } = submit_options;
@@ -1124,6 +1126,7 @@ mod client {
                 let SubmitOptions {
                     create,
                     draft,
+                    no_verify: _,
                     execution_strategy: _,
                     num_jobs: _,
                     message: _,

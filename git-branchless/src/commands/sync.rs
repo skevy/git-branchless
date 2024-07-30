@@ -65,7 +65,11 @@ pub fn sync(
     check_revset_syntax(&repo, &revsets)?;
 
     if pull {
-        try_exit_code!(git_run_info.run(effects, Some(event_tx_id), &["fetch", "--all"])?);
+        try_exit_code!(git_run_info.run(
+            effects,
+            Some(event_tx_id),
+            &["fetch", "origin", "master"]
+        )?);
     }
 
     let MoveOptions {

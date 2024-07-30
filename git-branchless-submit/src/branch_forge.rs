@@ -190,7 +190,7 @@ impl Forge for BranchForge<'_> {
     fn create(
         &mut self,
         commits: HashMap<NonZeroOid, CommitStatus>,
-        _options: &SubmitOptions,
+        options: &SubmitOptions,
     ) -> EyreExitOr<HashMap<NonZeroOid, CreateStatus>> {
         let unsubmitted_branch_names = commits
             .values()
@@ -237,6 +237,9 @@ These remotes are available: {}",
             // This will fail if somebody else created the branch on the remote and we don't
             // know about it.
             let mut args = vec!["push", "--set-upstream", &push_remote];
+            if options.no_verify {
+                args.push("--no-verify");
+            }
             args.extend(unsubmitted_branch_names.iter().map(|s| s.as_str()));
             let event_tx_id = self
                 .event_log_db
@@ -268,7 +271,7 @@ These remotes are available: {}",
     fn update(
         &mut self,
         commits: HashMap<NonZeroOid, CommitStatus>,
-        _options: &SubmitOptions,
+        options: &SubmitOptions,
     ) -> EyreExitOr<()> {
         let branches_by_remote: BTreeMap<String, BTreeSet<String>> = commits
             .into_values()
@@ -301,7 +304,10 @@ These remotes are available: {}",
             .sum();
         progress.notify_progress(0, total_num_branches);
         for (remote_name, branch_names) in branches_by_remote {
-            let mut args = vec!["push", "--force-with-lease", &remote_name];
+            let mut args = vec!["push", "--force", &remote_name];
+            if options.no_verify {
+                args.push("--no-verify");
+            }
             args.extend(branch_names.iter().map(|s| s.as_str()));
             match self.git_run_info.run(&effects, Some(event_tx_id), &args)? {
                 Ok(()) => {}

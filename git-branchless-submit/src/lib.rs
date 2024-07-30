@@ -128,6 +128,9 @@ pub struct SubmitOptions {
     /// commit's code review.
     pub draft: bool,
 
+    /// Don't run pre-push hooks.
+    pub no_verify: bool,
+
     /// For implementations which need to use the working copy to create the
     /// code review, the appropriate execution strategy to do so.
     pub execution_strategy: TestExecutionStrategy,
@@ -191,6 +194,7 @@ pub fn command_main(ctx: CommandContext, args: SubmitArgs) -> EyreExitOr<()> {
         forge_kind,
         create,
         draft,
+        no_verify,
         message,
         num_jobs,
         execution_strategy,
@@ -204,6 +208,7 @@ pub fn command_main(ctx: CommandContext, args: SubmitArgs) -> EyreExitOr<()> {
         forge_kind,
         create,
         draft,
+        no_verify,
         message,
         num_jobs,
         execution_strategy,
@@ -219,6 +224,7 @@ fn submit(
     forge_kind: Option<ForgeKind>,
     create: bool,
     draft: bool,
+    no_verify: bool,
     message: Option<String>,
     num_jobs: Option<usize>,
     execution_strategy: Option<TestExecutionStrategy>,
@@ -288,6 +294,7 @@ fn submit(
     let submit_options = SubmitOptions {
         create,
         draft,
+        no_verify,
         execution_strategy,
         num_jobs,
         message,
