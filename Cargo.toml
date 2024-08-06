@@ -107,3 +107,6 @@ cc = "1.1.5"
 criterion = { version = "0.5.1", features = ["html_reports"] }
 insta = "1.39.0"
 maplit = "1.0.2"
+
+[patch.crates-io]
+cursive_core = { git = "https://github.com/gyscos/cursive", rev = "cursive_core-v0.3.7" }
